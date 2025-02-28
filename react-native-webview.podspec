@@ -19,8 +19,6 @@ Pod::Spec.new do |s|
 
   s.source_files    = "apple/**/*.{h,m,mm,swift}"
 
-  s.dependency 'PopupBridge', '2.2.0'
-  
   if defined?(install_modules_dependencies()) != nil
     install_modules_dependencies(s);
   else
@@ -45,4 +43,6 @@ Pod::Spec.new do |s|
       s.dependency "React-Core"
     end
   end
+  
+  s.dependency 'PopupBridge', '2.2.0'
 end
