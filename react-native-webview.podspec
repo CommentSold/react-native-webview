@@ -44,5 +44,5 @@ Pod::Spec.new do |s|
     end
   end
   
-#  s.dependency 'PopupBridge', '2.2.0'
+  s.dependency 'PopupBridge', '2.2.0'
 end
