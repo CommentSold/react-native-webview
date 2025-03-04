@@ -5,6 +5,10 @@ import android.graphics.Color
 import android.view.View
 import android.webkit.WebView
 import android.widget.FrameLayout
+import com.braintreepayments.api.PopupBridgeClient;
+import androidx.fragment.app.FragmentActivity;
+import android.content.ContextWrapper
+
 
 /**
  * A [FrameLayout] container to hold the [RNCWebView].
@@ -18,9 +22,25 @@ class RNCWebViewWrapper(context: Context, webView: RNCWebView) : FrameLayout(con
     // and let React Native sets background color for the container.
     webView.setBackgroundColor(Color.TRANSPARENT)
     addView(webView)
+
+    getActivity(context)?.let {
+      popupBridgeClient = PopupBridgeClient(it, webView, "my-custom-url-scheme");
+    }
+
   }
 
   val webView: RNCWebView = getChildAt(0) as RNCWebView
+  lateinit var popupBridgeClient: PopupBridgeClient
+
+  fun getActivity(context: Context): FragmentActivity? {
+    while (context is ContextWrapper) {
+      if (context is FragmentActivity) {
+        return context
+      }
+      return getActivity((context as ContextWrapper).baseContext)
+    }
+    return null
+  }
 
   companion object {
     /**
